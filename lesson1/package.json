@@ -1,11 +1,11 @@
 {
-  "name": "lesson1",
+  "name": "mernproject",
   "version": "1.0.0",
   "description": "tech-notes MERN PROJECT",
   "main": "server.js",
   "scripts": {
     "start": "node server",
-    "dev":"nodemon server"
+    "dev": "nodemon server"
   },
   "repository": {
     "type": "git",
