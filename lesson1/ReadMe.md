@@ -1,5 +1,5 @@
 #userStories for tech notes git remote add origin https://github.com/Sabkeebar/MERN-PROJECT-Note-system
-1. [x ]  Replace current sticky note system
+1. [x]  Replace current sticky note system
 2. [ ]  Add a public facing page with basic contact info
 3. [ ]  Add an employee login to the notes app
 4. [ ]  Provide a welcome page after login
@@ -18,4 +18,4 @@
 17. [ ]  Managers and Admins can view, edit, and delete all notes
 18. [ ]  Only Managers and Admins can access User Settings
 19. [ ]  Only Managers and Admins can create new users
-20. [ ]  Desktop mode is most important but should be available in mobile .
+20. [ ]  Desktop mode is most important but should be available in mobile 
