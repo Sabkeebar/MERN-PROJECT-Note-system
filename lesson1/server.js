@@ -8,8 +8,12 @@ const cookieParser =require('cookie-parser')
 const {logger} =require('./middleware/logger');
 const errorHandler=require('./middleware/errorHandler')
 const corsOptions =require('./config/corsOptions')
+const connectDB = require('./config/dbConn')
+const mongoose =require('mongoose')
+const {logEvents}=require('./middleware/logger')
 console.log(process.env.NODE_ENV)
-
+console.log(process.env.DATABASE_URL)
+connectDB()
 
 
 app.use(express.json()) //receives  and process json data
@@ -37,5 +41,13 @@ app.all('*', (req, res) => {
  app.use(errorHandler)
  
 
+ mongoose.connection.once('open', () => {
+    console.log('Connected to MongoDB')
+    app.listen(PORT, () => console.log(`Server running on port ${PORT}`))
+})
 
-app.listen(PORT,()=>console.log(`server running on port ${PORT}`))
+mongoose.connection.on('error', err => {
+    console.log(err)
+    logEvents(`${err.no}: ${err.code}\t${err.syscall}\t${err.hostname}`, 'mongoErrLog.log')
+})
+//app.listen(PORT, () => console.log(`Server running on port ${PORT}`))
