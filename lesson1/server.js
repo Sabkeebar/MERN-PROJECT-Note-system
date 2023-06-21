@@ -11,6 +11,8 @@ const corsOptions =require('./config/corsOptions')
 const connectDB = require('./config/dbConn')
 const mongoose =require('mongoose')
 const {logEvents}=require('./middleware/logger')
+const userRoute =require('./routes/userRoutes')
+const notesRoute =require('./routes/notesRoutes')
 console.log(process.env.NODE_ENV)
 console.log(process.env.DATABASE_URL)
 connectDB()
@@ -19,6 +21,8 @@ connectDB()
 app.use(express.json()) //receives  and process json data
 app.use(cookieParser())
 app.use(cors(corsOptions))
+app.use("/users",userRoute)
+app.use('/notes',notesRoute)
 
 
 app.use('/', express.static(path.join(__dirname, 'public')))
