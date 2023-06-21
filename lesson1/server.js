@@ -1,22 +1,40 @@
+require('dotenv').config()
 const express =require('express')
 const app = express();
 const PORT = process.env.PORT||3500;
 const path = require('path')
-app.use('/',express.static(path.join(__dirname,'/public')))
+const cors =require('cors')
+const cookieParser =require('cookie-parser')
+const {logger} =require('./middleware/logger');
+const errorHandler=require('./middleware/errorHandler')
+const corsOptions =require('./config/corsOptions')
+console.log(process.env.NODE_ENV)
+
+
+
+app.use(express.json()) //receives  and process json data
+app.use(cookieParser())
+app.use(cors(corsOptions))
+
+
+app.use('/', express.static(path.join(__dirname, 'public')))
+app.use(logger)
 app.use('/',require('./routes/root'))
-app.use(express.json()) //receives json data
-
-
+ 
+// app.use('/here',(req,res)=>{
+//     res.send("hello")
+//  })
 app.all('*', (req, res) => {
      res.status(404)
      if (req.accepts('html')) {
          res.sendFile(path.join(__dirname, 'views', '404.html'))
      } else if (req.accepts('json')) {
-         res.json({ message: '404 Not Found' })
+         res.json({ message: '404 Not Found for json' })
      } else {
-         res.type('txt').send('404 Not Found')
+         res.type('txt').send('404 Not Found from for text')
      }
  })
+ app.use(errorHandler)
  
 
 
